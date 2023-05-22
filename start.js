@@ -44,9 +44,35 @@ function cancelToken() {
 }
 
 // INTERCEPTING REQUESTS & RESPONSES
+axios.interceptors.request.use(function (config) {
+  console.log('Intercepting Request:', config);
+  return config;
+}, function (error) {
+  console.error('Request Error:', error);
+  return Promise.reject(error);
+});
 
+axios.interceptors.response.use(function (response) {
+  console.log('Intercepting Response:', response);
+  return response;
+}, function (error) {
+  console.error('Response Error:', error);
+  return Promise.reject(error);
+});
 // AXIOS INSTANCES
+const instance1 = axios.create({
+  baseURL: 'https://api.example.com/instance1',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
 
+const instance2 = axios.create({
+  baseURL: 'https://api.example.com/instance2',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
 // Show output in browser
 function showOutput(res) {
   document.getElementById('res').innerHTML = `
